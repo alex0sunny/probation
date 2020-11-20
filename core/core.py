@@ -5,16 +5,21 @@ from itertools import count
 from aiohttp import web
 from aiohttp.web_exceptions import HTTPFound
 
+N_WORKERS = 3
+
 QUEUE = asyncio.Queue()
 
 DB = {}
 
 GENERATOR = count(start=1, step=1)
 
-N_WORKERS = 3
-
-[ COUNT,     DELTA,      START,      INTERVAL,   CURRENT,      STATUS,     STARTTIME] = \
-['count',   'delta',    'start',    'interval', 'current',    'status',   'starttime']
+COUNT   =   'count'
+DELTA   =   'delta'
+START   =   'start'
+INTERVAL=   'interval'
+CURRENT =   'current'
+STATUS  =   'status'
+STARTTIME=  'starttime'
 
 
 async def worker(name, queue):
@@ -29,7 +34,7 @@ async def worker(name, queue):
             await asyncio.sleep(item[INTERVAL])
             item[CURRENT] += item[DELTA]
 
-        queue.task_done()
+        #queue.task_done()
         del DB[task_id]
 
 
