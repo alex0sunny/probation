@@ -56,7 +56,7 @@ async def enqueue_handle(request):
     task_id = next(GENERATOR)
     DB[task_id] = item
     QUEUE.put_nowait(task_id)
-    return web.Response(text="accepted task_id: %d\ntask:%s" % (task_id, item))
+    return web.Response(text=f'accepted task_id: {task_id}\ntask:{item}')
 
 
 async def main(loop):
