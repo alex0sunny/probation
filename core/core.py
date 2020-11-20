@@ -34,7 +34,6 @@ async def worker(name, queue):
             await asyncio.sleep(item[INTERVAL])
             item[CURRENT] += item[DELTA]
 
-        #queue.task_done()
         del DB[task_id]
 
 
@@ -70,10 +69,7 @@ async def main(loop):
     await runner.setup()
     await web.TCPSite(runner).start()
 
-    tasks = []
-    for i in range(N_WORKERS):
-        task = loop.create_task(worker(f'worker-{i}', QUEUE))
-        tasks.append(task)
+    [loop.create_task(worker(f'worker-{i}', QUEUE)) for i in range(N_WORKERS)]
 
     await asyncio.Event().wait()
 
