@@ -22,10 +22,10 @@ STATUS  =   'status'
 STARTTIME=  'starttime'
 
 
-async def worker(name, queue):
+async def worker():
 
     while True:
-        task_id = await queue.get()
+        task_id = await QUEUE.get()
         item = DB[task_id]
         item[STATUS] = 'processing'
         item[STARTTIME] = datetime.datetime.now().strftime('%d.%m.%y %H:%M:%S.%f')[:-5]
@@ -35,6 +35,7 @@ async def worker(name, queue):
             item[CURRENT] += item[DELTA]
 
         del DB[task_id]
+        QUEUE.task_done()   # unnecessary?
 
 
 async def tasks_handle(request):
@@ -44,7 +45,7 @@ async def tasks_handle(request):
 async def enqueue_handle(request):
     params = request.rel_url.query
     if not params:
-        raise HTTPFound('/enqueue?count=10&delta=1&start=0&interval=0.5')
+        raise HTTPFound(f'/enqueue?{COUNT}=10&{DELTA}=1&{START}=0&{INTERVAL}=0.5')
     item = {}
     item.update(params)
     item[COUNT]     = int(item[COUNT])
@@ -69,7 +70,8 @@ async def main(loop):
     await runner.setup()
     await web.TCPSite(runner).start()
 
-    [loop.create_task(worker(f'worker-{i}', QUEUE)) for i in range(N_WORKERS)]
+    for _ in range(N_WORKERS):
+        loop.create_task(worker())
 
     await asyncio.Event().wait()
 
