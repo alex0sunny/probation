@@ -8,33 +8,33 @@ http://localhost:8080/
 
 http://localhost:8080/enqueue
 
-Тестовое задание на Python-разработчика
+Python developer test task
 ==============
 
-Нужно создать github репозиторий и в нем разместить приложение aiohttp. Python 3.6. в корне проекта run.py. Сервер должен считать арифметическую прогресию в очереди. При запуске стартует веб-сервер, у сервера есть два endpointa:
-1. Поставить задачу в очередь. Параметры:
-- count - количество элементов целочисленное (int)
-- delta - дельта между элементами последовательности (float)
-- start - Стартовое значение
-- interval - интервал в секундах между итерациями (float)
+Create github repository with aiohttp application on Python 3.6. run.py should be at the root. The backend should calculate the arithmetic sequence (sum of members). Simultaneously with the launch of the application, a web server should be launched with two endpoints:
+1. Enqueue task. Parameters:
+- count - number of elements (int)
+- delta - arithmetic progression common difference (float)
+- start - initial term
+- interval - interval between iterations in seconds (float)
 
-2. Получить отсортированный список задач и статусы выполнения этих задач. Поля результата для каждой задачи:
-- Номер в очереди
-- Статус: В процессе/В очереди
+2. Get the sorted list of tasks and their statuses. Result fields for every task:
+- Number in queue
+- Status: in process/in queue
 - count
 - delta
 - start
 - interval
-- Текущее значение рассчета
-- Дата старта задачи
+- currently calculated value
+- calculation start date
 
 --------
 
-### Требования:
-- Отработанные задачи стирать
-- В качестве хранения данных использовать память
-- Сервер запускается одним процессом
-- Вычисление текущего значения должно высчитываться по интервалу, а не по формуле разницы времени и количеству итераций.
-- Очередь стартует, как только в нее попадает задача
-- 1 "воркер" выполняет только одну задачу
-- Должна быть установка, сколько паралелльно запущено "воркеров"
+### Requirements:
+- Remove completed tasks
+- Store data in memory
+- Application starts as a single process
+- Current value calculation should depend exclusively on interval and on common difference and should not take into account number of iterations nor time elapsed from the start of the task.
+- Task is enquued and, if possible, processed immediately.
+- One worker executes only one task
+- It should be possible to set the maximum number of parallel execution workers
