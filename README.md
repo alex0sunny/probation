@@ -11,7 +11,7 @@ http://localhost:8080/enqueue
 Python developer test task
 ==============
 
-Create github repository with aiohttp application on Python 3.6. run.py should be at the root. The backend should calculate the arithmetic sequence (sum of members). Simultaneously with the launch of the application, a web server should be launched with two endpoints:
+Create github repository with aiohttp application on Python 3.6. run.py should be at the root. The backend should calculate the arithmetic sequence (sum of members). Simultaneously with the launch of the backend, a web server should be launched with two endpoints:
 1. Enqueue task. Parameters:
 - count - number of elements (int)
 - delta - arithmetic progression common difference (float)
@@ -34,7 +34,7 @@ Create github repository with aiohttp application on Python 3.6. run.py should b
 - Remove completed tasks
 - Store data in memory
 - Application starts as a single process
-- Current value calculation should depend exclusively on interval and on common difference and should not take into account number of iterations nor time elapsed from the start of the task.
-- Task is enquued and, if possible, processed immediately.
+- Current value calculation should depend exclusively on current value, interval and common difference and should not take into account number of iterations nor time elapsed from the start of the task.
+- Task is enqueued and, if possible, processed immediately.
 - One worker executes only one task
 - It should be possible to set the maximum number of parallel execution workers
