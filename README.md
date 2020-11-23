@@ -35,6 +35,6 @@ Create github repository with aiohttp application on Python 3.6. run.py should b
 - Store data in memory
 - Application starts as a single process
 - Current value calculation should depend exclusively on current value, interval and common difference and should not take into account number of iterations nor time elapsed from the start of the task.
-- Task is enqueued and, if possible, processed immediately.
+- Queue processing is started immediately.
 - One worker executes only one task
 - It should be possible to set the maximum number of parallel execution workers
